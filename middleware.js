@@ -1,13 +1,17 @@
-import { withAuth } from "@kinde-oss/kinde-auth-nextjs/middleware";
+import { NextResponse } from "next/server";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-// Add authentication to specific routes
-export default withAuth({
-  publicRoutes: ["/"],
-});
+export async function middleware(request) {
+  const { isAuthenticated } = getKindeServerSession();
 
-// Configure which routes to protect
+  if (!(await isAuthenticated)) {
+    return NextResponse.redirect(new URL("/api/auth/login?post_login_redirect_url=/dashboard", request.url));
+  }
+
+}
+
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: "/dashboard/:path*",
 };
+
+

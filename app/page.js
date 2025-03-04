@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AuthenticationButtons } from "@/components/auth/AuthenticationButtons";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const { logout, user } = useKindeBrowserClient();

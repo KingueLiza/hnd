@@ -1,4 +1,5 @@
 "use client";
+
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -23,7 +24,7 @@ export default function LoginPage() {
               </h1>
               <p className="mt-2 text-sm text-gray-600 text-center">
                 Or{' '}
-                <RegisterLink redirectUrl="/dashboard">
+                <RegisterLink>
                   <span className="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500">
                     create a new account
                   </span>
@@ -32,7 +33,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-4">
-              <LoginLink redirectUrl="/dashboard">
+              <LoginLink >
                 <Button className="w-full flex justify-center py-2 px-4">
                   Sign in with Email
                 </Button>
@@ -50,7 +51,7 @@ export default function LoginPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <LoginLink redirectUrl="/dashboard">
+                <LoginLink >
                   <Button
                     variant="outline"
                     className="w-full"
@@ -65,7 +66,7 @@ export default function LoginPage() {
                   </Button>
                 </LoginLink>
 
-                <LoginLink redirectUrl="/dashboard">
+                <LoginLink>
                   <Button
                     variant="outline"
                     className="w-full"
