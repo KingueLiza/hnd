@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1741875793415,
+      "tag": "0000_soft_cobalt_man",
+      "breakpoints": true
+    }
+  ]
+}
