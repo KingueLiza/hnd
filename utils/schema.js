@@ -1,8 +1,6 @@
-import { int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const GRADES=mysqlTable('grades',{
-    id:int('id').primaryKey(),
-    grade:varchar('grade',{length:10}).notNull()
-
-
+export const GRADES = sqliteTable('grades', {
+    id: integer('id').primaryKey(),
+    grade: text('grade').notNull()
 });

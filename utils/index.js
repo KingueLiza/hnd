@@ -1,13 +1,13 @@
-import { drizzle } from "drizzle-orm/mysql2";
-import mysql from "mysql2/promise";
+import { drizzle } from "drizzle-orm/libsql";
+import { createClient } from "@libsql/client";
 
-const connection = await mysql.createConnection({
-  host: "tracking",
-  user: "lizakingue",
-  database: "attendance_tracking",
-  password:'LiZa07',
-  port:''
-
+// Create a SQLite client
+const client = createClient({
+  // For local development, use a local SQLite file
+  url: "file:./local.db",
 });
 
-const db = drizzle({ client: connection });
+// Initialize Drizzle with the SQLite client
+const db = drizzle(client);
+
+export { db };
