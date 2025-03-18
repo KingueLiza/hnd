@@ -11,18 +11,45 @@ import {
   } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
+import GlobalApi from '@/app/_services/GlobalApi';
+import { toast } from 'sonner';
+import { LoaderIcon } from 'lucide-react';
   
 
 function AddNewStudent() {
     const [open, setOpen]=useState(false);
+    const[grades,setGrades]=useState([]);
+    const[loading,setLoading]=useState(false);
         const {
           register,
           handleSubmit,
           watch,
+          reset,
           formState: { errors },
         } = useForm()
+
+        const GetAllGrades=()=>{
+          GlobalApi.GetAllGrades().then(resp=>{
+            setGrades(resp.data);
+            
+          })
+        }
         const onSubmit = (data) =>{
-            console.log("FormData",data);
+            setLoading(true)
+            GlobalApi.CreateNewStudent(data).then(resp=>{
+              console.log( "--",resp);
+              if (resp.data)
+              {
+                reset();
+                
+                setOpen(false);
+                toast('New Student Added !')
+              }
+              setLoading(false)
+
+            })
+
+          
         }
 
   return (
@@ -37,34 +64,42 @@ function AddNewStudent() {
                 <div className='py-2'>
                     <label>Full Name</label>
                     <Input placeholder='Ex. John Carry'
-                    {...register('name',{required:true})}
+                    {...register('name',{ required:true })}
                     />
                 </div>
                 <div className='flex flex-col py-2'>
                     <label>Select Grade</label>
-                    <select className='p-3 border rounded-lg '>
-                    {...register('grade',{required:true})}
-                    <option value={'5th'}>5th</option>
-                    <option value={'6th'}>6th</option>
-                    <option value={'7th'}>7th</option>
+                    <select className='p-3 border rounded-lg '
+                    {...register('grade',{ required:true })}>
+                      {grades.map((item,index)=>(
+                     <option key={index} value={item.grade}>{item.grade}</option>
+                      
+                     ))}
                     </select>
                 </div>
                 <div className='py-2'>
                     <label>Contact Number</label>
-                    <Input placeholder='Ex. 9876543210'/>
-                    {...register('contact')}
+                    <Input type="number" placeholder='Ex. 9876543210'
+                       {...register('contact')}
+                    />
                 </div>
                 <div className='py-2'>
                     <label>Adress</label>
-                    <Input placeholder='Ex. 525 N tryon Streen,NC'/>
-                    {...register('address')}
+                    <Input placeholder='Ex. 525 N tryon Streen,NC'
+                      {...register('address')}
+ 
+                    />
 
                 </div>
                 <div className='flex gap-3 items-center justify-end mt-5'>
-                    <Button onClick={()=>setOpen(false)} variant="ghost">Cancel</Button>
+                    <Button type="button" 
+                    onClick={()=>setOpen(false)} variant="ghost">Cancel</Button>
                     <Button
                     type = "submit"
-                     onClick={()=>console.log(save)}>Save</Button>
+                    disable={loading}
+                    >
+                      {loading?  <LoaderIcon className='animate-spin'/>:
+                      'Save'}</Button>
                 </div> 
             </form>
       </DialogDescription>
