@@ -28,7 +28,8 @@ const[studentList,setStudentList]=useState([]);
             <AddNewStudent/>
         </h2>
 
-        <StudentListTable studentlist={studentList}/>
+        <StudentListTable studentlist={studentList}
+        refreshData={GetAllStudents}/>
     </div>
   )
 }

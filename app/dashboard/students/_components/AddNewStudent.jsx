@@ -1,6 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -28,13 +28,17 @@ function AddNewStudent() {
           formState: { errors },
         } = useForm()
 
-        const GetAllGrades=()=>{
+        useEffect(()=>{
+          GetAllGradesList();
+        })
+
+        const GetAllGradesList=()=>{
           GlobalApi.GetAllGrades().then(resp=>{
             setGrades(resp.data);
             
           })
         }
-        const onSubmit = (data) =>{
+        const onSubmit = (data) => {
             setLoading(true)
             GlobalApi.CreateNewStudent(data).then(resp=>{
               console.log( "--",resp);
@@ -72,8 +76,7 @@ function AddNewStudent() {
                     <select className='p-3 border rounded-lg '
                     {...register('grade',{ required:true })}>
                       {grades.map((item,index)=>(
-                     <option key={index} value={item.grade}>{item.grade}</option>
-                      
+                      <option key={index} value={item.grade}>{item.grade}</option>
                      ))}
                     </select>
                 </div>

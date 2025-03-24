@@ -11,12 +11,13 @@ function Header() {
 
       </div>
       <div>
-       <Image src={user?.picture} 
-       width={35}
-        height={35}
-        alt='user'
-        className='rounded-full'
-        />
+       <Image 
+    src={user?.picture || "/default-profile.png"} 
+    width={35} 
+    height={35} 
+    alt="User"
+    className='rounded-full'/>
+        
       </div>
     </div>
   )
